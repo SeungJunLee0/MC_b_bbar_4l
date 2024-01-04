@@ -15,7 +15,8 @@ line_print = "You choose the "+ width_title[x]
 print(line_print)
 width = width_title[x] 
 
-all_folder = glob.glob('/u/user/seungjun/SE_UserHome/lhe/'+width+'/*.lhe')
+all_folder = glob.glob('/cms/ldap_home/seungjun/nano/mg5amcnlo/madgraph/various/'+width+'/*.lhe')
+#all_folder = glob.glob('/u/user/seungjun/SE_UserHome/lhe/'+width+'/*.lhe')
 all_file = [x for x in all_folder if os.path.isfile(x)]
 all_file.sort()
 for i,file_name in enumerate(all_file):
@@ -23,7 +24,8 @@ for i,file_name in enumerate(all_file):
     file_new= file_name.strip("pwgevents-")
     file_new= file_new.strip(".lhe")
     print(file_new)
-    command_line="cmsRun lhe_to_edm.py "+file_name+" /u/user/seungjun/SE_UserHome/root/"+width+"/lhe_"+str(i)+".root "
+    command_line="cmsRun lhe_to_edm.py "+file_name+" /xrootd_user/seungjun/xrootd/nano/root/"+width+"/lhe_"+str(i)+".root "
+    #command_line="cmsRun lhe_to_edm.py "+file_name+" /u/user/seungjun/SE_UserHome/root/"+width+"/lhe_"+str(i)+".root "
     print(command_line)
     os.system(command_line)
 
