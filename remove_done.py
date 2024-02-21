@@ -27,6 +27,10 @@ print(line_print)
 
 dir_name = width_title[x]
 input_dir = f"/xrootd_user/seungjun/xrootd/nano/"+step_title_root[y]+"/"+dir_name
+if step_title_root[y] == "MINIAOD":command = "find "+input_dir+"/* -size -1024k -exec rm -rf {} \;"
+if step_title_root[y] != "MINIAOD":command = "find "+input_dir+"/* -size -1024M -exec rm -rf {} \;"
+os.system(command)
+
 
 file_list = os.listdir(input_dir)
 for i in range(len(file_list)):
