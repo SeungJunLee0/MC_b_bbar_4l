@@ -27,14 +27,20 @@ width = width_title[x]
 dir_name = width_title[x]
 
 
-voms_dir = f"/d0/scratch/b_bbar/run"+dir_name
-work_dir = f"/u/user/seungjun/scratch/b_bbar/run"+dir_name
+voms_dir = f"/cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run"+dir_name
+#voms_dir = f"/d0/scratch/b_bbar/run"+dir_name
+work_dir = f"/cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run"+dir_name
+#work_dir = f"/u/user/seungjun/scratch/b_bbar/run"+dir_name
 run_dir = f"{work_dir}/HTCondor_run"
 #input_dir = f"/u/user/seungjun/scratch/b_bbar"
-input_dir = f"/u/user/seungjun/SE_UserHome/root/"+dir_name
+input_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/root/"+dir_name
+output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/GEN_SIM/"+dir_name
+#input_dir = f"root://cmsxrootd.fnal.gov//xrd/store/user/seungjun/nano/root/"+dir_name
+#input_dir = f"/xrootd_user/seungjun/xrootd/nano/root/"+dir_name
+#input_dir = f"/u/user/seungjun/SE_UserHome/root/"+dir_name
 #input_dir = f"root://cluster142.knu.ac.kr//store/user/seungjun/root/"+dir_name
 #output_dir = f"/u/user/seungjun/scratch/b_bbar/out"
-output_dir = f"/u/user/seungjun/SE_UserHome/AOD/"+dir_name
+#output_dir = f"/xrootd_user/seungjun/xrootd/nano/AOD/"+dir_name
 
 
 
@@ -134,11 +140,12 @@ cat <<'EndOfMCGenerationFile' > MC_Generation_Script_{job_id}.sh
 echo "Processing job number {job_id} ... "
 export X509_USER_PROXY={work_dir}/x509up
 CWD=`pwd -P`
-mkdir -p /u/user/seungjun/scratch/{dir_name}/job_{job_id}
-cd /u/user/seungjun/scratch/{dir_name}/job_{job_id}
+mkdir -p /cms/ldap_home/seungjun/{dir_name}/job_{job_id}
+cd /cms/ldap_home/seungjun/{dir_name}/job_{job_id}
 
 ### GEN-SIM step ###
 
+#export CMS_PATH=/cms/ldap_home/seungjun
 export SCRAM_ARCH=slc7_amd64_gcc700
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -r CMSSW_10_6_27/src ] ; then
@@ -157,16 +164,17 @@ cmsenv
 cp {fragment_path} Configuration/GenProduction/python/PY8_fragment.py
 scram b
 cd ../..
+#dasgoclient -dasmaps=/u/user/seungjun/scratch/{dir_name}/job_{job_id} -query="files dataset=/Neutrino_E-10_gun/RunIISummer20ULPrePremix-UL18_106X_upgrade2018_realistic_v11_L1v1-v2/PREMIX"
 
 cmsDriver.py Configuration/GenProduction/python/PY8_fragment.py --python_filename GEN-SIM_cfg.py \\
              --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM \\
-             --fileout file:GEN-SIM.root \\
+             --fileout file:GEN-SIM_{job_id}.root \\
              --filein file:{input_dir}/lhe_{job_id}.root \\
              --conditions 106X_upgrade2018_realistic_v11_L1v1 --beamspot Realistic25ns13TeVEarly2018Collision \\
              --geometry DB:Extended --era Run2_2018 \\
              --step GEN,SIM --no_exec --mc --customise_commands "from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper ; randSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService) ; randSvc.populate()" -n {nEvents} || exit $? ;
 cmsRun GEN-SIM_cfg.py || exit $? ;
-
+xrdcp GEN-SIM_{job_id}.root {output_dir}/
 
 #  cd CMSSW_10_6_27/src
 #  eval 'cmsenv'
@@ -267,7 +275,8 @@ chmod +x MC_Generation_Script_{job_id}.sh
     return script
 
 ####################################################################################
-def get_condor_submit_file(work_dir,run_dir, nJobs):
+def get_condor_submit_file(work_dir,run_dir, nJobs,job_num):
+#def get_condor_submit_file(work_dir,run_dir, nJobs):
 ####################################################################################
     
     script_name = run_dir + "/MC_Generation_Script"
@@ -275,15 +284,21 @@ def get_condor_submit_file(work_dir,run_dir, nJobs):
     
     file=''
     file+=f'RequestMemory         = 4 GB\n'
+    file+=f'RequestDisk           = 7 GB\n'
     file+=f'universe              = vanilla\n'
     file+=f'getenv                = true\n'
-    file+=f'executable            = {script_name}_$(ProcId).sh\n'
-    file+=f'output                = {script_name}_$(ProcId).out\n'
-    file+=f'error                 = {script_name}_$(ProcId).err\n'
-    file+=f'log                   = {script_name}_$(ProcId).log\n'
+    #file+=f'executable            = {script_name}_$(ProcId).sh\n'
+    file+=f'executable            = {script_name}_{job_num}.sh\n'
+    #file+=f'output                = {script_name}_$(ProcId).out\n'
+    file+=f'output                = {script_name}_{job_num}.out\n'
+    #file+=f'error                 = {script_name}_$(ProcId).err\n'
+    file+=f'error                 = {script_name}_{job_num}.err\n'
+    #file+=f'log                   = {script_name}_$(ProcId).log\n'
+    file+=f'log                   = {script_name}_{job_num}.log\n'
     file+=f'transfer_executable   = True\n'
     file+=f'x509userproxy = {work_dir}/x509up\n'
-    file+=f'queue {nJobs}\n'
+    #file+=f'queue {nJobs}\n'
+    file+=f'queue 1\n'
     file+=f'#\n'
     
     return file
@@ -386,8 +401,19 @@ def main():
             job_id+=1
     
     
-    with open(f'{run_dir}/mc_generation_jobs.submit','w') as file_out:
-        file_out.write(get_condor_submit_file(work_dir,run_dir, job_id))
+    job_id=0
+    for i_num in range(args.nJob):
+        job_name = "0000"
+        if job_id < 10:                        job_name ="000"+str(job_id)
+        if job_id >= 10 and job_id < 100:       job_name ="00"+str(job_id)
+        if job_id >= 100 and job_id < 1000:     job_name ="0"+str(job_id)
+        if job_id >= 1000 and job_id < 10000:     job_name =str(job_id)
+
+
+        with open(f'{run_dir}/mc_generation_jobs_{job_name}.submit','w') as file_out:
+        #with open(f'{run_dir}/mc_generation_jobs_{str(job_id)}.submit','w') as file_out:
+            file_out.write(get_condor_submit_file(work_dir,run_dir, job_id,job_id))
+        job_id+=1
 
     with open(f'{run_dir}/find.sh','w') as file_out:
         file_out.write(get_find_script(output_dir, list(gridpack_dict.keys()), job_id))
