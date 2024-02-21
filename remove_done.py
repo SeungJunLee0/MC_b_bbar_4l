@@ -26,6 +26,10 @@ line_print = "You choose the "+ width_title[x]
 print(line_print)
 
 dir_name = width_title[x]
+input_dir = f"/xrootd_user/seungjun/xrootd/nano/"+step_title_root[y-1]+"/"+dir_name
+if step_title_root[y-1] == "MINIAOD":command = "find "+input_dir+"/* -size -1024k -exec rm -rf {} \;"
+if step_title_root[y-1] != "MINIAOD":command = "find "+input_dir+"/* -size -1024M -exec rm -rf {} \;"
+os.system(command)
 input_dir = f"/xrootd_user/seungjun/xrootd/nano/"+step_title_root[y]+"/"+dir_name
 if step_title_root[y] == "MINIAOD":command = "find "+input_dir+"/* -size -1024k -exec rm -rf {} \;"
 if step_title_root[y] != "MINIAOD":command = "find "+input_dir+"/* -size -1024M -exec rm -rf {} \;"
@@ -59,7 +63,7 @@ for i in range(len(file_list)):
     os.system(command)
     command = 'rm -rf /cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_'+step_title[y]+width_title[x] +'/HTCondor_run/mc_generation_job_'   +file_list[i] +".sh"
     os.system(command)
-    command = 'rm -rf /cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_'+step_title[y]+width_title[x] +'/HTCondor_run/MC_Generation_Script_'+file_list[i] +".sh"
+    command = 'rm -rf /cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_'+step_title[y]+width_title[x] +'/HTCondor_run/MC_Generation_Script_'+file_list[i] +".*"
     os.system(command)
 
 
@@ -114,6 +118,6 @@ for i in range(len(result)):
     os.system(command)
     command = 'rm -rf /cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_'+step_title[y]+width_title[x] +'/HTCondor_run/mc_generation_job_'   +result[i] +".sh"
     os.system(command)
-    command = 'rm -rf /cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_'+step_title[y]+width_title[x] +'/HTCondor_run/MC_Generation_Script_'+result[i] +".sh"
+    command = 'rm -rf /cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_'+step_title[y]+width_title[x] +'/HTCondor_run/MC_Generation_Script_'+result[i] +".*"
     os.system(command)
 
