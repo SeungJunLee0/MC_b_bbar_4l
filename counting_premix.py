@@ -24,7 +24,7 @@ line_print = "You choose the "+ width_title[x]
 print(line_print)
 
 dir_name = width_title[x]
-input_dir = f"/xrootd_user/seungjun/xrootd/nano/root/"+dir_name
+input_dir = f"/xrootd_user/seungjun/xrootd_new/nano/root/"+dir_name
 
 file_list = os.listdir(input_dir)
 #print(file_list)
