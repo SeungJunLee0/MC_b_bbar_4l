@@ -32,8 +32,8 @@ work_dir = f"/cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_gen"+dir_name
 #work_dir = f"/u/user/seungjun/scratch/b_bbar/run"+dir_name
 run_dir = f"{work_dir}/HTCondor_run"
 #input_dir = f"/u/user/seungjun/scratch/b_bbar"
-input_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/root/"+dir_name
-output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/GEN_SIM/"+dir_name
+input_dir =  f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/root/"+dir_name
+output_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/GEN_SIM/"+dir_name
 
 
 
@@ -171,8 +171,7 @@ cmsDriver.py Configuration/GenProduction/python/PY8_fragment.py --python_filenam
              --geometry DB:Extended --era Run2_2018 \\
              --step GEN,SIM --no_exec --mc --customise_commands "from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper ; randSvc = RandomNumberServiceHelper(process.RandomNumberGeneratorService) ; randSvc.populate()" -n {nEvents} || exit $? ;
 cmsRun GEN-SIM_cfg.py || exit $? ;
-xrdcp GEN-SIM_{job_id}.root {output_dir}/
-python3 /cms/ldap_home/seungjun/tmp/catbot.py GEN-SIM_{job_id}.root
+xrdcp -f GEN-SIM_{job_id}.root {output_dir}/
 
 #  cd CMSSW_10_6_27/src
 #  eval 'cmsenv'
