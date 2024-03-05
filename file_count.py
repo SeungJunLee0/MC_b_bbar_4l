@@ -14,8 +14,8 @@ for i in range(len(width_title)):
 x = input()
 x = int(x)
 
-for y in range(8):
-    folder_path = f"/xrootd_user/seungjun/xrootd/nano/"+file_type[y]+"/"+width_title[x]
+for y in range(7):
+    folder_path = f"/xrootd_user/seungjun/xrootd_new/nano/"+file_type[y]+"/"+width_title[x]
     file_list = os.listdir(folder_path)
     print(file_type[y],"  " ,len(file_list))
     if len(file_list) > 3:
