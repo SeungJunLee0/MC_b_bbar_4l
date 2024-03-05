@@ -22,7 +22,7 @@ y = input()
 y = int(y)
 
 
-folder_path = f"/xrootd_user/seungjun/xrootd/nano/"+file_type[y]+"/"+width_title[x]
+folder_path = f"/xrootd_user/seungjun/xrootd_new/nano/"+file_type[y]+"/"+width_title[x]
 file_list = os.listdir(folder_path)
 for i in range(4):
     size_one = folder_path+"/"+file_list[i]
