@@ -33,10 +33,10 @@ work_dir = f"/cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_MINIAOD"+dir_name
 run_dir = f"{work_dir}/HTCondor_run"
 #input_dir = f"/u/user/seungjun/scratch/b_bbar"
 #input_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/AOD/"+dir_name
-#output_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/MINIAOD/"+dir_name
-input_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/AOD/"+dir_name
-output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/MINIAOD/"+dir_name
-
+output_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/MINIAOD/"+dir_name
+input_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/AOD/"+dir_name
+#output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/MINIAOD/"+dir_name
+#input_dir = f"/xrootd_user/seungjun/xrootd/nano/AOD/"+dir_name
 
 ####################################################################################
 def get_fragment():
@@ -183,8 +183,7 @@ cmsDriver.py --python_filename MINIAOD_cfg.py \\
              --conditions 106X_upgrade2018_realistic_v16_L1v1 \\
              --step PAT --geometry DB:Extended --procModifiers run2_miniAOD_UL --era Run2_2018 --runUnscheduled --no_exec --mc -n {nEvents} || exit $? ;
 cmsRun MINIAOD_cfg.py || exit $? ;
-xrdcp MINIAOD_{job_id}.root {output_dir}/
-python3 /cms/ldap_home/seungjun/tmp/catbot.py MINIAOD_{job_id}.root  
+xrdcp -f MINIAOD_{job_id}.root {output_dir}/
 #  ### NANOAOD step ###
 #  cmsDriver.py --python_filename NANOAOD_cfg.py \\
 #               --eventcontent NANOAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM \\
