@@ -32,8 +32,8 @@ work_dir = f"/cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_HLT"+dir_name
 #work_dir = f"/u/user/seungjun/scratch/b_bbar/run"+dir_name
 run_dir = f"{work_dir}/HTCondor_run"
 #input_dir = f"/u/user/seungjun/scratch/b_bbar"
-input_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/PREMIX/"+dir_name
-output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/HLT/"+dir_name
+input_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/PREMIX/"+dir_name
+output_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/HLT/"+dir_name
 
 
 
@@ -183,8 +183,7 @@ cmsDriver.py --python_filename HLT_cfg.py \\
              --conditions 102X_upgrade2018_realistic_v15 --customise_commands 'process.source.bypassVersionCheck = cms.untracked.bool(True)' \\
              --step HLT:2018v32 --geometry DB:Extended --era Run2_2018 --no_exec --mc -n {nEvents} || exit $? ;
 cmsRun HLT_cfg.py || exit $? ;
-xrdcp HLT_{job_id}.root {output_dir}/
-python3 /cms/ldap_home/seungjun/tmp/catbot.py GEN-SIM_{job_id}.root
+xrdcp -f HLT_{job_id}.root {output_dir}/
 
 #  
 #  
