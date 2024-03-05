@@ -17,9 +17,9 @@ step_title_root2 = ["GEN-SIM","PREMIX" ,"HLT","AOD","MINIAOD","NANOAOD"]
 
 dir_name = width_title[x]
 for i in range(3):
-    input_dir = f"/xrootd_user/seungjun/xrootd/nano/"+step_title_root[i+1]+"/"+dir_name
+    input_dir = f"/xrootd_user/seungjun/xrootd_new/nano/"+step_title_root[i+1]+"/"+dir_name
 	size_i = "1k"
-    if i == 0: size_i = "9216G" #PREMIX
+    if i == 0: size_i = "9216M" #PREMIX
     if i == 1: size_i = "8294M" #HLT
     if i == 2: size_i = "2048M" #AOD
     command = "find "+input_dir+"/* -size -"+size_i+" -exec rm -rf {} \; &"
