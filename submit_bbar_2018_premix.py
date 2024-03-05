@@ -176,8 +176,7 @@ cmsDriver.py --python_filename PREMIX_cfg.py \\
              --step DIGI,DATAMIX,L1,DIGI2RAW --procModifiers premix_stage2 --geometry DB:Extended \\
              --datamix PreMix --era Run2_2018 --no_exec --mc -n {nEvents} || exit $? ;
 cmsRun PREMIX_cfg.py || exit $? ;
-xrdcp PREMIX_{job_id}.root {output_dir}/
-python3 /cms/ldap_home/seungjun/tmp/catbot.py PREMIX_{job_id}.root
+xrdcp -f PREMIX_{job_id}.root {output_dir}/
 #  
 #  
 #  
