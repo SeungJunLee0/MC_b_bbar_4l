@@ -33,10 +33,9 @@ work_dir = f"/cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_MINIAOD"+dir_name
 run_dir = f"{work_dir}/HTCondor_run"
 #input_dir = f"/u/user/seungjun/scratch/b_bbar"
 #input_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/AOD/"+dir_name
-output_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/MINIAOD/"+dir_name
-input_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/AOD/"+dir_name
-#output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/MINIAOD/"+dir_name
-#input_dir = f"/xrootd_user/seungjun/xrootd/nano/AOD/"+dir_name
+#output_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/MINIAOD/"+dir_name
+input_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/AOD/"+dir_name
+output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/MINIAOD/"+dir_name
 
 ####################################################################################
 def get_fragment():
