@@ -35,8 +35,8 @@ run_dir = f"{work_dir}/HTCondor_run"
 #input_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/HLT/"+dir_name
 #output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/AOD/"+dir_name
 
-input_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/HLT/"+dir_name
-output_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/AOD/"+dir_name
+input_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/HLT/"+dir_name
+output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/AOD/"+dir_name
 
 
 
