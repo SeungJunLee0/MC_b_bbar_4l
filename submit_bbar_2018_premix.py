@@ -32,11 +32,11 @@ work_dir = f"/cms/ldap_home/seungjun/nano/MC_b_bbar_4l/run_premix"+dir_name
 #work_dir = f"/u/user/seungjun/scratch/b_bbar/run"+dir_name
 run_dir = f"{work_dir}/HTCondor_run"
 #input_dir = f"/u/user/seungjun/scratch/b_bbar"
-input_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/GEN_SIM/"+dir_name
-output_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/PREMIX/"+dir_name
+#input_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/GEN_SIM/"+dir_name
+#output_dir = f"root://cms-xrdr.private.lo:3094//xrd/store/user/seungjun/nano/PREMIX/"+dir_name
 
-#input_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/GEN_SIM/"+dir_name
-#output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/PREMIX/"+dir_name
+input_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/GEN_SIM/"+dir_name
+output_dir = f"root://cms-xrdr.private.lo:2094//xrd/store/user/seungjun/nano/PREMIX/"+dir_name
 
 
 
