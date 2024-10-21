@@ -43,7 +43,8 @@ def split_root_file(input_file, output_prefix, events_per_file=10000):
 
 
 # Base directory where the input files are located
-input_directory = "/xrootd_user/seungjun/xrootd/nano/root/0_90em/"
+#input_directory = "/xrootd_user/seungjun/xrootd/nano/root/0_90em/"
+input_directory = "/xrootd_user/seungjun/xrootd/nano/root/1_10em/"
 
 # Process lhe_0.root to lhe_49.root
 for i in range(50):
