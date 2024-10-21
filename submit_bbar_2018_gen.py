@@ -58,16 +58,16 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                          comEnergy = cms.double(13000.),
  
                          #bbbar_4l settings
-                         emissionVeto1 = cms.untracked.PSet(),
-                         EV1_vetoOn = cms.bool(True),
-                         EV1_maxVetoCount = cms.int32(100),
-                         EV1_pThardMode = cms.int32(0),
-                         EV1_pTempMode = cms.int32(0),
-                         EV1_emittedMode = cms.int32(0),
-                         EV1_pTdefMode = cms.int32(1),
-                         EV1_MPIvetoOn = cms.bool(True),
-                         EV1_nFinalMode = cms.int32(2),
-                         EV1_nFinal = cms.int32(999), 
+                         #emissionVeto1 = cms.untracked.PSet(),
+                         #EV1_vetoOn = cms.bool(True),
+                         #EV1_maxVetoCount = cms.int32(100),
+                         #EV1_pThardMode = cms.int32(0),
+                         #EV1_pTempMode = cms.int32(0),
+                         #EV1_emittedMode = cms.int32(0),
+                         #EV1_pTdefMode = cms.int32(1),
+                         #EV1_MPIvetoOn = cms.bool(True),
+                         #EV1_nFinalMode = cms.int32(2),
+                         #EV1_nFinal = cms.int32(999), 
                          #New Line
  
                          PythiaParameters = cms.PSet(
@@ -79,19 +79,19 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                                           'TimeShower:pTmaxMatch  = 2', # 1 without main31; 2 for main31
                                           'MultipartonInteractions:pTmaxMatch = 2',
                                           'POWHEGres:calcScales = off',   # obsolete routine, don't use
-                                          'POWHEG:bb4l = on', # should be on
-                                          'POWHEG:bb4l:FSREmission:veto = true', # default veto implemented using doVetoFSREmission hook
-                                          'POWHEG:bb4l:FSREmission:onlyDistance1 = false', # whether to veto only the first emission, or all of them. Due to shower evolution scale mismatch, all should be vetoed. The pheno impact seems negligible. Only applies to FSREmission veto
-                                          'POWHEG:bb4l:FSREmission:dryRun = false',   # debug switch, don't modify
-                                          'POWHEG:bb4l:FSREmission:vetoAtPL = false', # for debugging only, don't modify
-                                          'POWHEG:bb4l:FSREmission:vetoQED = false',  # whether to veto QED emissions. QED emissions should not be vetoed in b_bbar_4l
-                                          'POWHEG:bb4l:PartonLevel:veto = false',     # alternative veto implemented using doVetoPartonLevel hook. Should yield results equivalent to the FSREmission veto but it is much slower. This is because vetoing individual emissions, the event is completely reshowered if at the first emission should be vetoed. Note that this veto requires features not available in the public version of Pythia (as of version 8.230)
-                                          'POWHEG:bb4l:PartonLevel:excludeFSRConflicting = false', # debug switch, don't modify
-                                          'POWHEG:bb4l:DEBUG = false',  # debug switch, don't modify
-                                          'POWHEG:bb4l:ScaleResonance:veto = false', # alternative veto implemented using ScaleResonance hook. Suffers from scale definition mismatch.
-                                          'POWHEG:bb4l:FSREmission:vetoDipoleFrame = false', # whether or not to calculate veto pt in the dipole frame instead of the resonance frame
-                                          'POWHEG:bb4l:FSREmission:pTpythiaVeto = false', # whether or not to use Pythia's definition of pt
-                                          'POWHEG:bb4l:pTminVeto = 0.8', # hardness in the case of no radiation from the top decay. This should effectively align with Pythia's IR cutoff
+                                          #'POWHEG:bb4l = on', # should be on
+                                          #'POWHEG:bb4l:FSREmission:veto = true', # default veto implemented using doVetoFSREmission hook
+                                          #'POWHEG:bb4l:FSREmission:onlyDistance1 = false', # whether to veto only the first emission, or all of them. Due to shower evolution scale mismatch, all should be vetoed. The pheno impact seems negligible. Only applies to FSREmission veto
+                                          #'POWHEG:bb4l:FSREmission:dryRun = false',   # debug switch, don't modify
+                                          #'POWHEG:bb4l:FSREmission:vetoAtPL = false', # for debugging only, don't modify
+                                          #'POWHEG:bb4l:FSREmission:vetoQED = false',  # whether to veto QED emissions. QED emissions should not be vetoed in b_bbar_4l
+                                          #'POWHEG:bb4l:PartonLevel:veto = false',     # alternative veto implemented using doVetoPartonLevel hook. Should yield results equivalent to the FSREmission veto but it is much slower. This is because vetoing individual emissions, the event is completely reshowered if at the first emission should be vetoed. Note that this veto requires features not available in the public version of Pythia (as of version 8.230)
+                                          #'POWHEG:bb4l:PartonLevel:excludeFSRConflicting = false', # debug switch, don't modify
+                                          #'POWHEG:bb4l:DEBUG = false',  # debug switch, don't modify
+                                          #'POWHEG:bb4l:ScaleResonance:veto = false', # alternative veto implemented using ScaleResonance hook. Suffers from scale definition mismatch.
+                                          #'POWHEG:bb4l:FSREmission:vetoDipoleFrame = false', # whether or not to calculate veto pt in the dipole frame instead of the resonance frame
+                                          #'POWHEG:bb4l:FSREmission:pTpythiaVeto = false', # whether or not to use Pythia's definition of pt
+                                          #'POWHEG:bb4l:pTminVeto = 0.8', # hardness in the case of no radiation from the top decay. This should effectively align with Pythia's IR cutoff
                                           ),                
 
                               processParameters = cms.vstring(
@@ -276,10 +276,14 @@ def get_condor_submit_file(work_dir,run_dir, nJobs,job_num):
     #script_name = run_dir + "/mc_generation_job"
     
     file=''
-    file+=f'RequestMemory         = 4 GB\n'
-    file+=f'RequestDisk           = 7 GB\n'
-    file+=f'universe              = vanilla\n'
+    file+=f'RequestMemory         = 9 GB\n'
+    file+=f'RequestDisk           = 12 GB\n'
+    #file+=f'universe              = vanilla\n'
+    file+=f'universe              = container\n'
+    file+=f'container_image       =/cms/container_images/boost.sif\n'
+    file+=f'+SingularityBind =  "/cvmfs,/cms,/cms_scratch,/etc/profile.d"\n'
     file+=f'getenv                = true\n'
+    file+=f'should_transfer_files = YES\n'
     #file+=f'executable            = {script_name}_$(ProcId).sh\n'
     file+=f'executable            = {script_name}_{job_num}.sh\n'
     #file+=f'output                = {script_name}_$(ProcId).out\n'
