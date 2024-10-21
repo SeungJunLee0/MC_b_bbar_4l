@@ -1,4 +1,5 @@
 import ROOT
+import os
 
 def split_root_file(input_file, output_prefix, events_per_file=10000):
     # Open the input ROOT file
@@ -8,7 +9,7 @@ def split_root_file(input_file, output_prefix, events_per_file=10000):
 
     # Get the total number of events in the tree
     total_events = input_tree.GetEntries()
-    print("Total events: {}".format(total_events))
+    print("Total events in {}: {}".format(input_file, total_events))
 
     # Initialize a counter for output file naming
     file_count = 0
@@ -40,8 +41,27 @@ def split_root_file(input_file, output_prefix, events_per_file=10000):
     # Close the input ROOT file
     input_f.Close()
 
-# Example of how to call the function
-input_file = "lhe_0.root"  
-output_prefix = "lhe_root" 
-split_root_file(input_file, output_prefix)
+
+# Base directory where the input files are located
+input_directory = "/xrootd_user/seungjun/xrootd/nano/root/0_90em/"
+
+# Process lhe_0.root to lhe_49.root
+for i in range(50):
+    # Using format() instead of f-string for compatibility with older Python versions
+    input_file = os.path.join(input_directory, "lhe_{}.root".format(i))  # Input file path
+    output_prefix = os.path.join(input_directory, "lhe_root_{}".format(i))  # Output prefix for each file
+    split_root_file(input_file, output_prefix)
+    os.system("rm {}".format(input_file))
+
+num = 0
+for filename in os.listdir(input_directory):
+    old_file = os.path.join(input_directory, filename)
+    
+    if os.path.isfile(old_file):
+        new_filename = "lhe_"+str(num)+".root"
+        new_file = os.path.join(input_directory, new_filename)
+        
+        os.rename(old_file, new_file)
+        print("Renamed: {} -> {}".format(old_file, new_file))
+        num +=1
 
